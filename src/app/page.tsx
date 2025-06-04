@@ -1,5 +1,14 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 
 export default function Home() {
-  return <div></div>;
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  return (
+    <div>
+      <form></form>
+    </div>
+  );
 }
