@@ -4,7 +4,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Loader2, OctagonAlertIcon } from "lucide-react";
 
@@ -26,13 +25,12 @@ const formSchema = z
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });
-type SignInFormType = z.infer<typeof formSchema>;
+type SignUpFormType = z.infer<typeof formSchema>;
 
 export const SignUpView = () => {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState<boolean>(false);
-  const form = useForm<SignInFormType>({
+  const form = useForm<SignUpFormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -41,7 +39,7 @@ export const SignUpView = () => {
       confirmPassword: "",
     },
   });
-  const onSubmit = async (data: SignInFormType) => {
+  const onSubmit = async (data: SignUpFormType) => {
     setError(null);
     setPending(true);
     await authClient.signUp.email(
@@ -49,11 +47,11 @@ export const SignUpView = () => {
         email: data.email,
         password: data.password,
         name: data.email,
+        callbackURL: "/",
       },
       {
         onSuccess: () => {
           setPending(false);
-          router.push("/");
         },
         onError: ({ error }) => {
           setPending(false);
@@ -62,6 +60,27 @@ export const SignUpView = () => {
       }
     );
   };
+  const onSocial = async (provider: "github" | "google") => {
+    setError(null);
+    setPending(true);
+    setError(null);
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/",
+      },
+      {
+        onError: ({ error }) => {
+          setPending(false);
+          setError(error.message);
+        },
+        onSuccess: () => {
+          setPending(false);
+        },
+      }
+    );
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <Card className="overflow-hidden p-0">
@@ -141,10 +160,10 @@ export const SignUpView = () => {
                   <span className="bg-card text-muted-foreground relative z-10 px-2">Or continue with</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <Button variant={"outline"} type="button" className="w-full">
+                  <Button onClick={() => onSocial("google")} variant={"outline"} type="button" className="w-full">
                     Google
                   </Button>
-                  <Button variant={"outline"} type="button" className="w-full">
+                  <Button onClick={() => onSocial("github")} variant={"outline"} type="button" className="w-full">
                     Github
                   </Button>
                 </div>
