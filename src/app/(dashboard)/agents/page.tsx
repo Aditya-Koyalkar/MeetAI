@@ -6,6 +6,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { LoadingState } from "@/components/loading-state";
 import { AgentsView } from "@/modules/agents/ui/views/agents-view";
 import { ErrorState } from "@/components/error-state";
+import { AgentsListHeader } from "@/modules/agents/ui/components/agents-list-header";
 
 const Page = async () => {
   const queryClient = getQueryClient();
@@ -14,14 +15,17 @@ const Page = async () => {
   //The result is tagged in the cache under a unique query key (e.g., ['agents.getMany']).
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<LoadingState title="Loading Agents" description="This may take few seconds..." />}>
-        {/* Error boundary to handle component level error handling instead of page */}
-        <ErrorBoundary fallback={<ErrorState title="Error fetching agents" description="Please try again later." />}>
-          <AgentsView />
-        </ErrorBoundary>
-      </Suspense>
-    </HydrationBoundary>
+    <>
+      <AgentsListHeader />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <Suspense fallback={<LoadingState title="Loading Agents" description="This may take few seconds..." />}>
+          {/* Error boundary to handle component level error handling instead of page */}
+          <ErrorBoundary fallback={<ErrorState title="Error fetching agents" description="Please try again later." />}>
+            <AgentsView />
+          </ErrorBoundary>
+        </Suspense>
+      </HydrationBoundary>
+    </>
   );
 };
 
