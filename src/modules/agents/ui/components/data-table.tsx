@@ -31,7 +31,7 @@ const DataTable = ({ rows }: Props) => {
               <TableCell>
                 <Badge variant={"outline"} className="flex items-center gap-x-2 [&>svg]:size-4">
                   <VideoIcon className="text-blue-700" />
-                  {row.meetingCount == 1 ? "meeting" : "meetings"}
+                  {row.meetingCount} {row.meetingCount == 1 ? "meeting" : "meetings"}
                 </Badge>
               </TableCell>
             </TableRow>
