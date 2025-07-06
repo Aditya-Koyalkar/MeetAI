@@ -4,18 +4,20 @@ import { AgentGetOne } from "../../types";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { CornerDownRightIcon, VideoIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
 type Props = {
   onRowClick?: (id: string) => void;
   rows: AgentGetOne[];
 };
 
 const DataTable = ({ rows }: Props) => {
+  const router = useRouter();
   return (
     <div className="rounded-lg border bg-background overflow-hidden">
       <Table>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow id={row.id}>
+          {rows.map((row, index) => (
+            <TableRow id={`${index}`} onClick={() => router.push(`/agents/${row.id}`)}>
               <TableCell>
                 <div className="flex flex-col gap-y-1">
                   <div className="flex items-center gap-x-2">
