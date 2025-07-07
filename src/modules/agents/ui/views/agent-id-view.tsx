@@ -9,6 +9,8 @@ import { VideoIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useConfirm } from "../../hooks/use-confirm";
+import { useState } from "react";
+import { UpdateAgentDialog } from "../components/update-agent-dialog";
 
 type Props = {
   agentId: string;
@@ -19,7 +21,7 @@ const AgentIdView = ({ agentId }: Props) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const { data } = useSuspenseQuery(trpc.agents.getOne.queryOptions({ id: agentId }));
-
+  const [updateAgentDialogOpen, setUpdateAgentDialogOpen] = useState(false);
   const removeAgent = useMutation(
     trpc.agents.delete.mutationOptions({
       onSuccess: async () => {
@@ -47,9 +49,10 @@ const AgentIdView = ({ agentId }: Props) => {
 
   return (
     <>
+      <UpdateAgentDialog open={updateAgentDialogOpen} onOpenChange={setUpdateAgentDialogOpen} initialsValues={data} />
       <RemoveConfirmation />
       <div className="flex-1 py-4 px-4 md:px-8 flex flex-col gap-y-4">
-        <AgentIdHeader agentId={agentId} agentName={data.name} onEdit={() => {}} onRemove={handleRemoveAgent} />
+        <AgentIdHeader agentId={agentId} agentName={data.name} onEdit={() => setUpdateAgentDialogOpen(true)} onRemove={handleRemoveAgent} />
         <div className="bg-white rounded-lg border">
           <div className="px-4 py-5 gap-y-5 flex flex-col col-span-5">
             <div className="flex items-center gap-x-3">
