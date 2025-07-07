@@ -33,7 +33,7 @@ export const AgentIdHeader = ({ agentId, agentName, onEdit, onRemove }: Props) =
       </Breadcrumb>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <Button variant={"ghost"}>
+          <Button variant={"outline"}>
             <MoreVerticalIcon />
           </Button>
         </DropdownMenuTrigger>
