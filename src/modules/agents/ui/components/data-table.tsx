@@ -1,13 +1,13 @@
 "use client";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { AgentGetOne } from "../../types";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { AgentGetMany } from "../../types";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { CornerDownRightIcon, VideoIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 type Props = {
   onRowClick?: (id: string) => void;
-  rows: AgentGetOne[];
+  rows: AgentGetMany;
 };
 
 const DataTable = ({ rows }: Props) => {
