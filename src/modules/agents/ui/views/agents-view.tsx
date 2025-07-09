@@ -6,7 +6,7 @@ import { useTRPC } from "@/trpc/client";
 import DataTable from "../components/data-table";
 import EmptyState from "@/components/empty-state";
 import { useAgentsFilters } from "../../hooks/use-agents-filter";
-import DataPagination from "../components/data-pagination";
+import DataPagination from "@/components/data-pagination";
 
 export const AgentsView = () => {
   const trpc = useTRPC();

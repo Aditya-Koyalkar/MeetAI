@@ -10,7 +10,7 @@ import { CircleCheckIcon, CircleXIcon, ClockArrowUpIcon, ClockFadingIcon, Corner
 import { cn } from "@/lib/utils";
 
 type Props = {
-  onRowClick?: (id: string) => void;
+  onRowClick?: (id: MeetingGetMany[number]) => void;
   rows: MeetingGetMany;
 };
 
@@ -38,7 +38,7 @@ const statusColorMap = {
   processing: "bg-gray-300/20 text-gray-800 border-gray-800/5",
 };
 
-const DataTable = ({ rows }: Props) => {
+const DataTable = ({ rows, onRowClick }: Props) => {
   const router = useRouter();
   return (
     <div className="rounded-lg border bg-background overflow-hidden">
@@ -47,7 +47,7 @@ const DataTable = ({ rows }: Props) => {
           {rows.map((row, index) => {
             const Icon = statusIconMap[row.status as keyof typeof statusIconMap];
             return (
-              <TableRow id={`${index}`} onClick={() => router.push(`/agents/${row.id}`)} className="cursor-pointer">
+              <TableRow id={`${index}`} onClick={() => onRowClick?.(row)} className="cursor-pointer">
                 <TableCell>
                   <div className="flex flex-col gap-y-1">
                     <span className="font-semibold capitalize">{row.name}</span>

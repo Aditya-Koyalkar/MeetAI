@@ -11,14 +11,14 @@ interface Props {
     children: ReactNode;
   }>;
   onSelect: (value: string) => void;
-  onSearch: (value: string) => void;
+  onSearch?: (value: string) => void;
   value: string;
   placeholder?: string;
   isSearchable?: boolean;
   className?: string;
 }
 
-export const CommandSearch = ({ onSearch, onSelect, options, value, className, isSearchable, placeholder = "Select an option" }: Props) => {
+export const CommandSelect = ({ onSearch, onSelect, options, value, className, isSearchable, placeholder = "Select an option" }: Props) => {
   const [open, setOpen] = useState(false);
   const selectedOption = options.find((option) => option.value === value);
   const handleOpenChange = (value: boolean) => {
