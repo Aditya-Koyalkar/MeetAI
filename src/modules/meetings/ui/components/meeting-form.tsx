@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import { meetingsInsertSchema } from "../../schemas";
 import { MeetingGetOne } from "../../types";
 import { useState } from "react";
-import { CommandSearch } from "@/components/command-select";
+import { CommandSelect } from "@/components/command-select";
 
 interface MeetingFormProps {
   onSuccess?: (id?: string) => void;
@@ -101,7 +101,7 @@ export const MeetingForm = ({ initialValues, onCancel, onSuccess }: MeetingFormP
             <FormItem>
               <FormLabel>Agent</FormLabel>
               <FormControl>
-                <CommandSearch
+                <CommandSelect
                   options={(agents.data?.items ?? []).map((agent) => ({
                     id: agent.id,
                     value: agent.id,
