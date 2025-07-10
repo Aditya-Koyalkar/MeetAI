@@ -19,7 +19,6 @@ function verifySignatureWithSDK(body: string, signature: string): boolean {
 }
 
 export async function POST(req: NextRequest) {
-  console.log("webhook invoked");
   const signature = req.headers.get("x-signature");
   const apiKey = req.headers.get("x-api-key");
   if (!signature || !apiKey) {
