@@ -1,5 +1,4 @@
 import { ResponsiveDialog } from "@/components/responsive-dialog";
-import { toast } from "sonner";
 import { MeetingForm } from "./meeting-form";
 import { useRouter } from "next/navigation";
 
