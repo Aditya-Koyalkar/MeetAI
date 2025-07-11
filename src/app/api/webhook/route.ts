@@ -1,4 +1,4 @@
-import { and, eq, not } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 import {
   CallEndedEvent,

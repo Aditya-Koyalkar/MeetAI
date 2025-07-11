@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { useTRPC } from "@/trpc/client";
 import DataTable from "../components/data-table";

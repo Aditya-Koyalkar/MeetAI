@@ -2,10 +2,9 @@
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { GeneratedAvatar } from "@/components/generated-avatar";
 import { Badge } from "@/components/ui/badge";
-import { useRouter } from "next/navigation";
 import { MeetingGetMany } from "../../types";
 import { format } from "date-fns";
-import { CircleCheckIcon, CircleXIcon, ClockArrowUpIcon, ClockFadingIcon, CornerDownRightIcon, LoaderIcon, VideoIcon } from "lucide-react";
+import { CircleCheckIcon, CircleXIcon, ClockArrowUpIcon, ClockFadingIcon, CornerDownRightIcon, LoaderIcon } from "lucide-react";
 import { cn, formatDuration } from "@/lib/utils";
 
 type Props = {
@@ -30,7 +29,6 @@ const statusColorMap = {
 };
 
 const DataTable = ({ rows, onRowClick }: Props) => {
-  const router = useRouter();
   return (
     <div className="rounded-lg border bg-background overflow-hidden">
       <Table>

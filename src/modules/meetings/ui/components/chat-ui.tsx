@@ -7,7 +7,6 @@ import { useTRPC } from "@/trpc/client";
 import { LoadingState } from "@/components/loading-state";
 
 import "stream-chat-react/dist/css/v2/index.css";
-import { Wind } from "lucide-react";
 
 interface Props {
   meetingId: string;
@@ -17,7 +16,7 @@ interface Props {
   userImage: string | undefined;
 }
 
-export const ChatUI = ({ meetingId, meetingName, userId, userImage, userName }: Props) => {
+export const ChatUI = ({ meetingId, userId, userImage, userName }: Props) => {
   const trpc = useTRPC();
   const { mutateAsync: generateChatToken } = useMutation(trpc.meetings.generateChatToken.mutationOptions());
   const [channel, setChannel] = useState<StreamChannel>();

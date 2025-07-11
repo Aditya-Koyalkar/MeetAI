@@ -13,7 +13,7 @@ export const UpdateMeetingDialog = ({ open, onOpenChange, initialValues }: Props
     <ResponsiveDialog title="Edit Meeting" description="Edit the meeting details" open={open} onOpenChange={onOpenChange}>
       Update Meeting form
       <MeetingForm
-        onSuccess={(id?: string) => {
+        onSuccess={() => {
           onOpenChange(false);
         }}
         onCancel={() => {

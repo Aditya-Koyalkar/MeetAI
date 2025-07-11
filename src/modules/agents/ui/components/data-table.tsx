@@ -17,7 +17,7 @@ const DataTable = ({ rows }: Props) => {
       <Table>
         <TableBody>
           {rows.map((row, index) => (
-            <TableRow id={`${index}`} onClick={() => router.push(`/agents/${row.id}`)} className="cursor-pointer">
+            <TableRow key={`${index}`} onClick={() => router.push(`/agents/${row.id}`)} className="cursor-pointer">
               <TableCell>
                 <div className="flex flex-col gap-y-1">
                   <div className="flex items-center gap-x-2">

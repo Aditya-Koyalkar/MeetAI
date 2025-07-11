@@ -18,7 +18,7 @@ interface Props {
   className?: string;
 }
 
-export const CommandSelect = ({ onSearch, onSelect, options, value, className, isSearchable, placeholder = "Select an option" }: Props) => {
+export const CommandSelect = ({ onSearch, onSelect, options, value, className, placeholder = "Select an option" }: Props) => {
   const [open, setOpen] = useState(false);
   const selectedOption = options.find((option) => option.value === value);
   const handleOpenChange = (value: boolean) => {

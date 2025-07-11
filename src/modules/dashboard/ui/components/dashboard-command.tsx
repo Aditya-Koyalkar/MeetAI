@@ -1,5 +1,5 @@
 import { GeneratedAvatar } from "@/components/generated-avatar";
-import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandResponsiveDialog } from "@/components/ui/command";
+import { CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandResponsiveDialog } from "@/components/ui/command";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";

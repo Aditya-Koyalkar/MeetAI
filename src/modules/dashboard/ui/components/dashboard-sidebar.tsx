@@ -20,8 +20,6 @@ import { usePathname } from "next/navigation";
 import { DashboardUserButton } from "./dashboard-user-button";
 import { DashboardTrail } from "./dashboard-trail";
 
-type Props = {};
-
 const firstSection = [
   {
     icon: VideoIcon,
@@ -43,7 +41,7 @@ const secondSection = [
   },
 ];
 
-export const DashboardSidebar = ({}: Props) => {
+export const DashboardSidebar = () => {
   const pathname = usePathname();
 
   return (

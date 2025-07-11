@@ -7,7 +7,7 @@ import { SearchIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 
 function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
   return (
