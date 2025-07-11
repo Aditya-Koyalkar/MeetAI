@@ -38,11 +38,15 @@ export const MeetingForm = ({ initialValues, onCancel, onSuccess }: MeetingFormP
     trpc.meetings.create.mutationOptions({
       onSuccess: async (data) => {
         await queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
+        await queryClient.invalidateQueries(trpc.premium.getFreeUsage.queryOptions());
+
         onSuccess?.(data.id);
       },
       onError: (error) => {
         toast.error(error.message);
-        // WIP : If error is forbidden then redirect to payment
+        if (error.data?.code == "FORBIDDEN") {
+          router.push("/upgrade");
+        }
       },
     })
   );
@@ -53,15 +57,11 @@ export const MeetingForm = ({ initialValues, onCancel, onSuccess }: MeetingFormP
           await queryClient.invalidateQueries(trpc.meetings.getOne.queryOptions({ id: initialValues.id }));
         }
         await queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
-        await queryClient.invalidateQueries(trpc.premium.getFreeUsage.queryOptions());
 
         onSuccess?.();
       },
       onError: (error) => {
         toast.error(error.message);
-        if (error.data?.code == "FORBIDDEN") {
-          router.push("/upgrade");
-        }
       },
     })
   );
