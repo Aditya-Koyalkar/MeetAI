@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { formatDuration } from "@/lib/utils";
 import { Transcript } from "./transcript";
+import { ChatProvider } from "./chat-provider";
 
 interface Props {
   data: MeetingGetOne;
@@ -60,6 +61,10 @@ export const CompletedState = ({ data }: Props) => {
         <TabsContent value="transcript">
           <Transcript meetingId={data.id} />
         </TabsContent>
+        <TabsContent value="chat">
+          <ChatProvider meetingId={data.id} meetingName={data.name} />
+        </TabsContent>
+
         <TabsContent value="summary">
           <div className="bg-white rounded-lg border">
             <div className="px-4 py-5 flex flex-col col-span-5 gap-3">

@@ -6,13 +6,21 @@ import {
   CallSessionParticipantLeftEvent,
   CallSessionStartedEvent,
   CallTranscriptionReadyEvent,
+  MessageNewEvent,
 } from "@stream-io/node-sdk";
+
+import { GoogleGenAI } from "@google/genai";
+
+import { generateAvatarUrl } from "@/lib/avatar";
 
 import { db } from "@/db";
 import { agents, meetings } from "@/db/schema";
 import { streamVideo } from "@/lib/stream-video";
 import { NextRequest, NextResponse } from "next/server";
 import { inngest } from "@/inngest/client";
+import { streamChat } from "@/lib/stream-chat";
+
+const geminiAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 function verifySignatureWithSDK(body: string, signature: string): boolean {
   return streamVideo.verifyWebhook(body, signature);
@@ -145,6 +153,100 @@ export async function POST(req: NextRequest) {
       .returning();
     if (!updatedMeeting) {
       return NextResponse.json({ error: "Meeting not found" }, { status: 404 });
+    }
+  } else if (eventType == "message.new") {
+    const event = payload as MessageNewEvent;
+    const userId = event.user?.id;
+    const channelId = event.channel_id;
+    const text = event.message?.text;
+    if (!userId || !channelId || !text) {
+      return NextResponse.json(
+        {
+          error: "Missing required fields",
+        },
+        { status: 400 }
+      );
+    }
+    const [existingMeeting] = await db
+      .select()
+      .from(meetings)
+      .where(and(eq(meetings.id, channelId), eq(meetings.status, "completed")));
+    if (!existingMeeting) {
+      return NextResponse.json({ error: "Meeting not found" }, { status: 404 });
+    }
+    const [existingAgent] = await db.select().from(agents).where(eq(agents.id, existingMeeting.agentId));
+    if (!existingAgent) {
+      return NextResponse.json({ error: "Agent not found" }, { status: 404 });
+    }
+
+    if (userId !== existingAgent.id) {
+      const instructions = `
+      You are an AI assistant helping the user revisit a recently completed meeting.
+      Below is a summary of the meeting, generated from the transcript:
+      
+      ${existingMeeting.summary}
+      
+      The following are your original instructions from the live meeting assistant. Please continue to follow these behavioral guidelines as you assist the user:
+      
+      ${existingAgent.instructions}
+      
+      The user may ask questions about the meeting, request clarifications, or ask for follow-up actions.
+      Always base your responses on the meeting summary above.
+      
+      You also have access to the recent conversation history between you and the user. Use the context of previous messages to provide relevant, coherent, and helpful responses. If the user's question refers to something discussed earlier, make sure to take that into account and maintain continuity in the conversation.
+      
+      If the summary does not contain enough information to answer a question, politely let the user know.
+      
+      Be concise, helpful, and focus on providing accurate information from the meeting and the ongoing conversation.
+      `;
+
+      const channel = streamChat.channel("messaging", channelId);
+      await channel.watch();
+
+      const previousMessages = channel.state.messages
+        .slice(-5)
+        .filter((msg) => msg.text && msg.text.trim() !== "")
+        .map((message) => ({
+          role: message.user?.id === existingAgent.id ? "model" : "user",
+          parts: [{ text: message.text }],
+        }));
+      const messages = [{ role: "model", parts: [{ text: instructions }] }, ...previousMessages, { role: "user", parts: [{ text: text }] }];
+
+      const geminiResponse = await geminiAI.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: messages,
+      });
+
+      const responseText = geminiResponse.text;
+      if (!responseText) {
+        return NextResponse.json(
+          {
+            error: "No response from AI",
+          },
+          {
+            status: 400,
+          }
+        );
+      }
+      const avatarUrl = generateAvatarUrl({
+        seed: existingAgent.name,
+        variant: "botttsNeutral",
+      });
+
+      streamChat.upsertUser({
+        id: existingAgent.id,
+        name: existingAgent.name,
+        image: avatarUrl,
+      });
+
+      channel.sendMessage({
+        text: responseText,
+        user: {
+          id: existingAgent.id,
+          name: existingAgent.name,
+          image: avatarUrl,
+        },
+      });
     }
   }
 
