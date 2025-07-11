@@ -18,12 +18,10 @@ export const agentsRouter = createTRPCRouter({
       const [existingAgent] = await db
         .select({
           ...getTableColumns(agents),
-          meetingCount: sql<number>`COALESCE(COUNT(${meetings.id}), 0)`.as("meetingCount"),
+          meetingCount: db.$count(meetings, eq(agents.id, meetings.agentId)),
         })
         .from(agents)
-        .leftJoin(meetings, eq(agents.id, meetings.agentId))
-        .where(and(eq(agents.id, input.id), eq(agents.userId, ctx.auth.user.id)))
-        .groupBy(agents.id);
+        .where(and(eq(agents.id, input.id), eq(agents.userId, ctx.auth.user.id)));
       if (!existingAgent) {
         throw new TRPCError({ code: "NOT_FOUND", message: "Agent not found" });
       }
@@ -42,12 +40,10 @@ export const agentsRouter = createTRPCRouter({
       const data = await db
         .select({
           ...getTableColumns(agents),
-          meetingCount: sql<number>`COALESCE(COUNT(${meetings.id}), 0)`.as("meetingCount"),
+          meetingCount: db.$count(meetings, eq(agents.id, meetings.agentId)),
         })
         .from(agents)
-        .leftJoin(meetings, eq(agents.id, meetings.agentId))
         .where(and(eq(agents.userId, ctx.auth.user.id), search ? ilike(agents.name, `%${input.search}%`) : undefined))
-        .groupBy(agents.id)
         .orderBy(desc(agents.createdAt), desc(agents.id))
         .limit(pageSize)
         .offset((page - 1) * pageSize);
