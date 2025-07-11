@@ -42,11 +42,15 @@ export const AgentForm = ({ initialValues, onCancel, onSuccess }: AgentFormProps
           await queryClient.invalidateQueries(trpc.agents.getOne.queryOptions({ id: initialValues.id }));
         }
         await queryClient.invalidateQueries(trpc.agents.getMany.queryOptions({}));
+        await queryClient.invalidateQueries(trpc.premium.getFreeUsage.queryOptions());
+
         onSuccess?.();
       },
       onError: (error) => {
         toast.error(error.message);
-        // WIP : If error is forbidden then redirect to payment
+        if (error.data?.code == "FORBIDDEN") {
+          router.push("/upgrade");
+        }
       },
     })
   );

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { db } from "@/db";
 import { agents, meetings, user } from "@/db/schema";
-import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
+import { createTRPCRouter, premiumProcedure, protectedProcedure } from "@/trpc/init";
 import { and, count, desc, eq, getTableColumns, ilike, inArray, sql } from "drizzle-orm";
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE } from "@/constants";
 import { TRPCError } from "@trpc/server";
@@ -165,59 +165,61 @@ export const meetingsRouter = createTRPCRouter({
         totalPages,
       };
     }),
-  create: protectedProcedure.input(meetingsInsertSchema).mutation(async ({ ctx, input }) => {
-    const { user } = ctx.auth;
-    const [createdMeeting] = await db
-      .insert(meetings)
-      .values({
-        ...input,
-        userId: user.id,
-      })
-      .returning();
+  create: premiumProcedure("meetings")
+    .input(meetingsInsertSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { user } = ctx.auth;
+      const [createdMeeting] = await db
+        .insert(meetings)
+        .values({
+          ...input,
+          userId: user.id,
+        })
+        .returning();
 
-    const call = streamVideo.video.call("default", createdMeeting.id);
-    await call.create({
-      data: {
-        created_by_id: ctx.auth.user.id,
-        custom: {
-          meetingId: createdMeeting.id,
-          meetingName: createdMeeting.name,
-        },
-        settings_override: {
-          transcription: {
-            language: "en",
-            mode: "auto-on",
-            closed_caption_mode: "auto-on",
+      const call = streamVideo.video.call("default", createdMeeting.id);
+      await call.create({
+        data: {
+          created_by_id: ctx.auth.user.id,
+          custom: {
+            meetingId: createdMeeting.id,
+            meetingName: createdMeeting.name,
           },
-          recording: {
-            mode: "auto-on",
-            quality: "1080p",
+          settings_override: {
+            transcription: {
+              language: "en",
+              mode: "auto-on",
+              closed_caption_mode: "auto-on",
+            },
+            recording: {
+              mode: "auto-on",
+              quality: "1080p",
+            },
           },
         },
-      },
-    });
-    const [existingAgent] = await db.select().from(agents).where(eq(agents.id, createdMeeting.agentId));
-    if (!existingAgent) {
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "Agent not found",
       });
-    }
+      const [existingAgent] = await db.select().from(agents).where(eq(agents.id, createdMeeting.agentId));
+      if (!existingAgent) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Agent not found",
+        });
+      }
 
-    await streamVideo.upsertUsers([
-      {
-        id: existingAgent.id,
-        name: existingAgent.name,
-        role: "user",
-        image: generateAvatarUrl({
-          seed: existingAgent.name,
-          variant: "botttsNeutral",
-        }),
-      },
-    ]);
+      await streamVideo.upsertUsers([
+        {
+          id: existingAgent.id,
+          name: existingAgent.name,
+          role: "user",
+          image: generateAvatarUrl({
+            seed: existingAgent.name,
+            variant: "botttsNeutral",
+          }),
+        },
+      ]);
 
-    return createdMeeting;
-  }),
+      return createdMeeting;
+    }),
   delete: protectedProcedure
     .input(
       z.object({

@@ -4,7 +4,7 @@ import Image from "next/image";
 type Props = {
   title: string;
   description: string;
-  image: string;
+  image?: string;
 };
 
 const EmptyState = ({ description, title, image = "/empty.svg" }: Props) => {
