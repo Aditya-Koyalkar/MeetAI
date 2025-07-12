@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 export const AgentsSearchFilter = () => {
   const [filters, setFilters] = useAgentsFilters();
   return (
-    <div className="relative">
+    <div className="relative border border-secondary/50 rounded-md">
       <Input
         placeholder="Filter by name"
         className="h-9 bg-white w-[200px] pl-7"

@@ -5,7 +5,7 @@ import { useMeetingsFilters } from "../../hooks/use-meetings-filter";
 export const MeetingsSearchFilter = () => {
   const [filters, setFilters] = useMeetingsFilters();
   return (
-    <div className="relative">
+    <div className="relative border border-secondary/50 rounded-md">
       <Input
         placeholder="Filter by name"
         className="h-9 bg-white w-[200px] pl-7"

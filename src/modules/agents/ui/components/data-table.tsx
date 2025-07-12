@@ -13,15 +13,15 @@ type Props = {
 const DataTable = ({ rows }: Props) => {
   const router = useRouter();
   return (
-    <div className="rounded-lg border border-foreground/50 bg-background overflow-hidden">
+    <div className="rounded-lg border border-secondary/50 bg-background overflow-hidden">
       <Table>
         <TableBody>
           {rows.map((row, index) => (
-            <TableRow key={`${index}`} onClick={() => router.push(`/agents/${row.id}`)} className="cursor-pointer">
+            <TableRow key={`${index}`} onClick={() => router.push(`/agents/${row.id}`)} className="cursor-pointer border border-secondary/50">
               <TableCell>
                 <div className="flex flex-col gap-y-1">
                   <div className="flex items-center gap-x-2">
-                    <GeneratedAvatar seed={row.name} variant="botttsNeutral" className="border size-6" />
+                    <GeneratedAvatar seed={row.name} variant="botttsNeutral" className="border border-secondary size-6" />
                     <span className="font-semibold capitalize">{row.name}</span>
                   </div>
                   <div className="flex items-center gap-x-2">
@@ -31,7 +31,7 @@ const DataTable = ({ rows }: Props) => {
                 </div>
               </TableCell>
               <TableCell>
-                <Badge variant={"outline"} className="flex items-center gap-x-2 [&>svg]:size-4">
+                <Badge variant={"outline"} className="flex items-center gap-x-2 [&>svg]:size-4 border-secondary/50">
                   <VideoIcon className="text-blue-700" />
                   {row.meetingCount} {row.meetingCount == 1 ? "meeting" : "meetings"}
                 </Badge>
