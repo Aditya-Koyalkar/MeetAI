@@ -16,7 +16,7 @@ export const UpgradeView = () => {
         <h5 className="font-medium text-2xl md:text-3xl">
           You are on the <span className="font-semibold text-primary">{currentSubscription?.name ?? "Free"}</span> plan
         </h5>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {products.map((product) => {
             const isCurrentProduct = currentSubscription?.id === product.id;
             const isPremium = !!currentSubscription;

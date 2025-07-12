@@ -6,11 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-const pricingCardVariants = cva("rounded-lg p-4 py-6 w-full", {
+const pricingCardVariants = cva("rounded-lg p-4 py-6 w-full transition-colors", {
   variants: {
     variant: {
-      default: "bg-white text-black",
-      highlighted: "bg-linear-to-br from-[#093C23] to-[#051B16] text-white",
+      default: "bg-background text-foreground border border-border",
+      highlighted: "bg-gradient-to-br from-primary to-secondary text-primary-foreground dark:from-primary dark:to-accent",
     },
   },
   defaultVariants: {
@@ -21,8 +21,8 @@ const pricingCardVariants = cva("rounded-lg p-4 py-6 w-full", {
 const pricingCardIconVariants = cva("size-5", {
   variants: {
     variant: {
-      default: "full-primary text-black",
-      highlighted: "full-white text-green-300",
+      default: "text-primary",
+      highlighted: "text-accent dark:text-accent-foreground",
     },
   },
   defaultVariants: {
@@ -30,20 +30,20 @@ const pricingCardIconVariants = cva("size-5", {
   },
 });
 
-const pricingCardSecondaryTextVariants = cva("text-neutral-700", {
+const pricingCardSecondaryTextVariants = cva("", {
   variants: {
     variant: {
-      default: "text-neutral-700",
-      highlighted: "text-neutral-300",
+      default: "text-muted-foreground",
+      highlighted: "text-muted dark:text-muted-foreground",
     },
   },
 });
 
-const pricingCardBadgeTextVariants = cva("text-black text-xs font-normal p-1", {
+const pricingCardBadgeTextVariants = cva("text-xs font-normal p-1 rounded", {
   variants: {
     variant: {
-      default: "bg-primary/20",
-      highlighted: "bg-[#F5B797]",
+      default: "bg-primary/20 text-primary",
+      highlighted: "bg-accent/20 text-accent dark:bg-accent/30 dark:text-accent-foreground",
     },
   },
   defaultVariants: {
