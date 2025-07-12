@@ -38,7 +38,3 @@
 | Authentication         | [BetterAuth](https://betterauth.dev)                                              |
 | Payments               | [Polar](https://polar.sh)                                                         |
 | UI Components          | [ShadCN UI](https://ui.shadcn.dev)                                                |
-
----
-
-## 📦 Project Structure
