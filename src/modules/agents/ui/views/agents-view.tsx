@@ -7,6 +7,7 @@ import DataTable from "../components/data-table";
 import EmptyState from "@/components/empty-state";
 import { useAgentsFilters } from "../../hooks/use-agents-filter";
 import DataPagination from "@/components/data-pagination";
+import { LoaderIcon } from "lucide-react";
 
 export const AgentsView = () => {
   const trpc = useTRPC();
@@ -21,6 +22,7 @@ export const AgentsView = () => {
       <DataTable rows={data.items} />
       {data.items.length == 0 && (
         <EmptyState
+          Icon={LoaderIcon}
           description="Create an agent to join your meetings. Each agent will follow your instructions and interact with participants during the call."
           title="Create your first agent"
         />
