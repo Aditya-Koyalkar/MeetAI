@@ -85,7 +85,9 @@ export const DashboardSidebar = () => {
                     className={cn(
                       "h-10 bg-gradient-to-tr",
                       "from-primary to-accent hover:via-accent/80",
-                      "dark:from-primary dark:via-pink-200 dark:to-accent hover:dark:via-pink-300"
+                      "dark:from-primary dark:via-pink-200 dark:to-accent hover:dark:via-pink-300",
+                      "transition-all duration-300 ease-in-out",
+                      "group"
                     )}
                     isActive={pathname == item.href}
                     asChild
