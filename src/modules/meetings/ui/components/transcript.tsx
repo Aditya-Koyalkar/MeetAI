@@ -18,7 +18,7 @@ export const Transcript = ({ meetingId }: Props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const filteredData = (data ?? []).filter((item) => item.text.toString().toLowerCase().includes(searchQuery.toLowerCase()));
   return (
-    <div className="bg-white rounded-lg border px-4 py-5 flex flex-col  gap-y-4 w-full">
+    <div className="rounded-lg border border-secondary/50 px-4 py-5 flex flex-col  gap-y-4 w-full">
       <p className="text-sm font-medium">Transcript</p>
       <div className="relative">
         <Input placeholder="Search Transcript" className="pl-7 h-9 w-[240px]" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
@@ -28,7 +28,7 @@ export const Transcript = ({ meetingId }: Props) => {
         <div className="flex flex-col gap-y-4">
           {filteredData.map((item) => {
             return (
-              <div key={item.stop_ts} className="flex flex-col gap-y-2 hover:bg-muted p-4 rounded-md border">
+              <div key={item.stop_ts} className="flex flex-col gap-y-2 hover:bg-muted p-4 rounded-md border border-secondary/50">
                 <div className="flex gap-x-2 items-center">
                   <Avatar className="size-6">
                     <AvatarImage src={(item.user.image as string) ?? generateAvatarUrl({ seed: item.user.name, variant: "initials" })} />
@@ -37,7 +37,7 @@ export const Transcript = ({ meetingId }: Props) => {
                   <p className="text-sm font-medium text-blue-500"> {format(new Date(0, 0, 0, 0, 0, 0, item.start_ts), "mm:ss")}</p>
                 </div>
                 <Highlighter
-                  className="text-sm text-neutral-700"
+                  className="text-sm text-secondary-foreground"
                   highlightClassName="bg-yellow-200"
                   searchWords={[searchQuery]}
                   autoEscape={true}

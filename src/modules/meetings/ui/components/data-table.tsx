@@ -30,7 +30,7 @@ const statusColorMap = {
 
 const DataTable = ({ rows, onRowClick }: Props) => {
   return (
-    <div className="rounded-lg border bg-background overflow-hidden">
+    <div className="rounded-lg  bg-background overflow-hidden">
       <Table>
         <TableBody>
           {rows.map((row, index) => {

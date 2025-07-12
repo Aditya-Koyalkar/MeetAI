@@ -43,7 +43,7 @@ export const ChatUI = ({ meetingId, userId, userImage, userName }: Props) => {
     return <LoadingState title="Loading Chat" description="This may take a few seconds" />;
   }
   return (
-    <div className="bg-white rounded-lg border overflow-hidden">
+    <div className=" rounded-lg border overflow-hidden">
       <Chat client={client}>
         <Channel channel={channel}>
           <Window>
