@@ -34,7 +34,7 @@ const pricingCardSecondaryTextVariants = cva("", {
   variants: {
     variant: {
       default: "text-muted-foreground",
-      highlighted: "text-muted dark:text-muted-foreground",
+      highlighted: "text-muted-foreground dark:text-muted-foreground",
     },
   },
 });
@@ -43,7 +43,7 @@ const pricingCardBadgeTextVariants = cva("text-xs font-normal p-1 rounded", {
   variants: {
     variant: {
       default: "bg-primary/20 text-primary",
-      highlighted: "bg-accent/20 text-accent dark:bg-accent/30 dark:text-accent-foreground",
+      highlighted: "bg-accent/20 text-accent-foreground dark:bg-accent/30 dark:text-accent-foreground",
     },
   },
   defaultVariants: {
