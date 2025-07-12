@@ -13,7 +13,7 @@ type Props = {
 const DataTable = ({ rows }: Props) => {
   const router = useRouter();
   return (
-    <div className="rounded-lg border bg-background overflow-hidden">
+    <div className="rounded-lg border border-foreground/50 bg-background overflow-hidden">
       <Table>
         <TableBody>
           {rows.map((row, index) => (

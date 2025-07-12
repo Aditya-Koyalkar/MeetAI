@@ -37,7 +37,7 @@ export const DashboardUserButton = () => {
   if (isMobile) {
     return (
       <Drawer>
-        <DrawerTrigger className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden ">
+        <DrawerTrigger className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between  overflow-hidden text-foreground">
           {data.user.image ? (
             <Avatar className=" flex gap-2">
               <AvatarImage src={data.user.image} />
@@ -45,7 +45,7 @@ export const DashboardUserButton = () => {
           ) : (
             <GeneratedAvatar seed={data.user.name} variant="initials" className="size-9 mr-3" />
           )}
-          <div className="flex flex-col gap-0.5 text-left overflow-hidden flex-1 min-w-0">
+          <div className="flex flex-col gap-0.5 text-left overflow-hidden flex-1 min-w-0 ml-1">
             <p className="text-sm truncate w-full">{data.user.name}</p>
             <p className="text-xs truncate w-full">{data.user.email}</p>
           </div>
@@ -73,7 +73,7 @@ export const DashboardUserButton = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden ">
+      <DropdownMenuTrigger className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-secondary-foreground/30 hover:bg-secondary-foreground/40 overflow-hidden text-secondary-foreground">
         {data.user.image ? (
           <Avatar className=" flex gap-2">
             <AvatarImage src={data.user.image} />
@@ -81,7 +81,7 @@ export const DashboardUserButton = () => {
         ) : (
           <GeneratedAvatar seed={data.user.name} variant="initials" className="size-9 mr-3" />
         )}
-        <div className="flex flex-col gap-0.5 text-left overflow-hidden flex-1 min-w-0">
+        <div className="flex flex-col gap-0.5 text-left overflow-hidden flex-1 min-w-0 ml-1">
           <p className="text-sm truncate w-full">{data.user.name}</p>
           <p className="text-xs truncate w-full">{data.user.email}</p>
         </div>
