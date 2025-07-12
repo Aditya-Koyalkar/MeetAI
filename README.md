@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DeepMeet.AI
 
-## Getting Started
+**DeepMeet.AI** is a modern AI-first video meeting SaaS platform that enables users to:
 
-First, run the development server:
+- Initiate real-time video calls with **custom AI agents**
+- Automatically generate **meeting summaries** and **transcripts**
+- Explore a full **post-call experience** including **video playback**, **transcript search**, and **AI chat** that understands context
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🔴 **Real-time calls** with AI agents powered by [MeetStream](https://meetstream.io)
+- 📝 **Transcripts & Summaries** generated in the background using [Inngest](https://www.inngest.com)
+- 🎥 **Post-call experience** with:
+  - Full meeting **recordings**
+  - Smart **transcript search**
+  - Interactive **AI chat**
+- 🔐 **Auth** handled securely with [BetterAuth](https://betterauth.dev)
+- 💳 **Payments** and subscriptions powered by [Polar](https://polar.sh)
+- 🧠 **Custom AI agents** fine-tuned for specific use-cases
+- 🧪 **Type-safe APIs** and validation across the stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🧰 Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+| Category               | Tech                                                                              |
+| ---------------------- | --------------------------------------------------------------------------------- |
+| Frontend               | [Next.js](https://nextjs.org), [TypeScript](https://www.typescriptlang.org)       |
+| State Management       | [TanStack Query](https://tanstack.com/query)                                      |
+| Backend API            | [tRPC](https://trpc.io)                                                           |
+| Validation             | [Zod](https://zod.dev)                                                            |
+| Forms                  | [React Hook Form](https://react-hook-form.com)                                    |
+| Database & ORM         | [PostgreSQL](https://www.postgresql.org), [Drizzle ORM](https://orm.drizzle.team) |
+| Video & AI Agent Infra | [MeetStream](https://meetstream.io)                                               |
+| Background Jobs        | [Inngest](https://www.inngest.com)                                                |
+| Authentication         | [BetterAuth](https://betterauth.dev)                                              |
+| Payments               | [Polar](https://polar.sh)                                                         |
+| UI Components          | [ShadCN UI](https://ui.shadcn.dev)                                                |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 Project Structure
