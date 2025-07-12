@@ -36,7 +36,7 @@ const DataTable = ({ rows, onRowClick }: Props) => {
           {rows.map((row, index) => {
             const Icon = statusIconMap[row.status as keyof typeof statusIconMap];
             return (
-              <TableRow key={`${index}`} onClick={() => onRowClick?.(row)} className="cursor-pointer">
+              <TableRow key={`${index}`} onClick={() => onRowClick?.(row)} className="cursor-pointer border border-secondary/50">
                 <TableCell>
                   <div className="flex flex-col gap-y-1">
                     <span className="font-semibold capitalize">{row.name}</span>
