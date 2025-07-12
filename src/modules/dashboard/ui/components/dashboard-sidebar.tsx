@@ -82,7 +82,11 @@ export const DashboardSidebar = () => {
               {secondSection.map((item) => (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
-                    className={cn("bg-gradient-to-l from-primary/30 to-primary h-10 hover:bg-primary transition-all")}
+                    className={cn(
+                      "h-10 bg-gradient-to-tr",
+                      "from-primary to-accent hover:via-accent/80",
+                      "dark:from-primary dark:via-pink-200 dark:to-accent hover:dark:via-pink-300"
+                    )}
                     isActive={pathname == item.href}
                     asChild
                   >
